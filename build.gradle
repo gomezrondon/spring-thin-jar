@@ -1,0 +1,39 @@
+buildscript {
+	ext {
+ 		thinPlugin = 'org.springframework.boot.experimental:spring-boot-thin-gradle-plugin'
+		thinVersion = '1.0.11.RELEASE'
+	}
+	dependencies {
+		classpath("${thinPlugin}:${thinVersion}")
+
+	}
+}
+
+plugins {
+  	id 'org.springframework.boot' version '2.2.5.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot.experimental.thin-launcher'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
